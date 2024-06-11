@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  wordgame-client:
+    build: .
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - .:/app
+      - ${SSH_AUTH_SOCK}:/ssh-agent # Share the SSH agent socket
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - EXPO_WEBPACK_PLATFORM=web
+      - EXTENSIONS_GALLERY={"serviceUrl":"https://marketplace.visualstudio.com/_apis/public/gallery","itemUrl":"https://marketplace.visualstudio.com/items","resourceUrlTemplate":"https://{publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/{publisher}/extension/{extension}/version/{version}/assetbyname/{assetName}"}
+      - SSH_AUTH_SOCK=/ssh-agent
+    command: sh -c "code-server /app --bind-addr 0.0.0.0:8080 --auth none"
