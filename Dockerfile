@@ -16,8 +16,9 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# I don't think we need to copy app code over, it should be mounted in container from local dir
 # Copy the rest of the application code to the working directory, excluding node_modules
-COPY . .
+# COPY . .
 
 # Ensure .dockerignore is used to exclude unnecessary files
 # Create a .dockerignore file in your project with the following content:
@@ -32,10 +33,10 @@ COPY . .
 EXPOSE 8081 19000 19001 19002
 
 # Expose the port for code-server
-EXPOSE 8080
+EXPOSE 8090
 
 # Environment variable to set the marketplace
 ENV EXTENSIONS_GALLERY='{"serviceUrl":"https://marketplace.visualstudio.com/_apis/public/gallery","itemUrl":"https://marketplace.visualstudio.com/items","resourceUrlTemplate": "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/{publisher}/vsextensions/{extensionName}/{version}/vspackage"}'
 
 # Start the Expo development server and code-server
-CMD ["sh", "-c", "code-server /app --bind-addr 0.0.0.0:8080"]
+CMD ["sh", "-c", "code-server /app --bind-addr 0.0.0.0:8090"]

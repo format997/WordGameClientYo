@@ -7,8 +7,8 @@ services:
       - "19000:19000"
       - "19001:19001"
       - "19002:19002"
-      - "8080:8080"
-      - "8081:8081"
+      - "8090:8090" # Change code-server client to listen on different port than code-server for server dev IDE
+      - "8081:8081" # Default port expo web listens on
     volumes:
       - .:/app
       - ${SSH_AUTH_SOCK}:/ssh-agent # Share the SSH agent socket
@@ -17,4 +17,4 @@ services:
       - EXPO_WEBPACK_PLATFORM=web
       - EXTENSIONS_GALLERY={"serviceUrl":"https://marketplace.visualstudio.com/_apis/public/gallery","itemUrl":"https://marketplace.visualstudio.com/items","resourceUrlTemplate":"https://{publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/{publisher}/extension/{extension}/version/{version}/assetbyname/{assetName}"}
       - SSH_AUTH_SOCK=/ssh-agent
-    command: sh -c "code-server /app --bind-addr 0.0.0.0:8080 --auth none"
+    command: sh -c "code-server /app --bind-addr 0.0.0.0:8090 --auth none"
