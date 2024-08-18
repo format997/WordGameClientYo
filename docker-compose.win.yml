@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  wordgame-client:
+    volumes:
+      - ${SSH_AUTH_SOCK}:/ssh-agent # Share the SSH agent socket
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
